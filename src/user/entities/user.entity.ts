@@ -5,7 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,14 +16,26 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
   @Column()
+  name: string;
+
+  @Column({ unique: true })
+  nickName: string;
+
+  @Column({ unique: true })
   phone: string;
+
+  @Column({ default: false })
+  isActive: boolean;
+
+  @Column({ default: false })
+  isAdmin: boolean;
 
   @CreateDateColumn()
   created: Date;
@@ -31,9 +43,9 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updated: Date;
 
-  @OneToMany((type) => Photo, (photo) => photo.userId)
+  @OneToMany(() => Photo, (photo) => photo.userId)
   photos: Photo[];
 
-  @ManyToOne((type) => Group, (group) => group.user)
-  groupId: Group;
+  @ManyToMany(() => Group, (group) => group.users)
+  groups: Group[];
 }
