@@ -7,13 +7,15 @@ export class CreateEventDto {
   name: string;
 
   @ApiProperty()
-  @IsDate()
-  start: Date;
+  // @IsDate()
+  @IsString()
+  start: string;
 
   @ApiProperty()
   @IsOptional()
-  @IsDate()
-  end: Date;
+  // @IsDate()
+  @IsString()
+  end: string;
 
   @ApiProperty()
   @IsNumber()
