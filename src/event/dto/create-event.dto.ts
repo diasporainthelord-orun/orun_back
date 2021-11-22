@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsDate, IsNumber, IsString } from 'class-validator';
 
 export class CreateEventDto {
   @ApiProperty()
@@ -7,17 +7,26 @@ export class CreateEventDto {
   name: string;
 
   @ApiProperty()
-  // @IsDate()
   @IsString()
-  start: string;
+  description: string;
 
   @ApiProperty()
-  @IsOptional()
-  // @IsDate()
-  @IsString()
-  end: string;
+  @IsDate()
+  start: Date;
+
+  @ApiProperty()
+  @IsDate()
+  end: Date;
 
   @ApiProperty()
   @IsNumber()
   fee: number;
+
+  @ApiPropertyOptional()
+  @IsString()
+  supporting: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  sponsored: string;
 }

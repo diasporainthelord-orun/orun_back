@@ -7,16 +7,21 @@ import {
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
+@Unique(['name'])
 export class Event extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
+
+  @Column()
+  description: string;
 
   @Column()
   start: Date;
@@ -26,6 +31,14 @@ export class Event extends BaseEntity {
 
   @Column()
   fee: number;
+
+  // 도움을 받으실 분
+  @Column({ default: null })
+  supporting: string;
+
+  // 도움을 주신 분
+  @Column({ default: null })
+  sponsored: string;
 
   @CreateDateColumn()
   created: Date;

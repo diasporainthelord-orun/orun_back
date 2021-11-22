@@ -8,15 +8,17 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
+@Unique(['email', 'nickName', 'phone'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
@@ -25,10 +27,10 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ unique: true })
+  @Column()
   nickName: string;
 
-  @Column({ unique: true })
+  @Column()
   phone: string;
 
   @Column({ default: false })
