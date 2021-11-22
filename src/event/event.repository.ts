@@ -9,7 +9,9 @@ export class EventRepository extends Repository<Event> {
     return this.save(createEventDto);
   }
 
-  async updateEvent(updateEventDto: UpdateEventDto): Promise<Event> {
+  async updateEvent(updateEventDto: UpdateEventDto): Promise<Event | null> {
     return this.save(updateEventDto);
   }
+
+  async deleteEvent() {}
 }
