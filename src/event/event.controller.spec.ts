@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
+// import { EventRepository } from './event.repository';
 import { EventRepository } from './event.repository';
 import { EventService } from './event.service';
+import mockEvent from './mockEvent.json';
 
 describe('EventController', () => {
   let controller: EventController;
@@ -24,7 +26,7 @@ describe('EventController', () => {
   describe('createEvents', () => {
     it('should call the service', () => {
       expect(typeof controller.create).toBe('function');
-      expect(controller.create).toBeCalledWith();
+      expect(controller.create).toBeCalledWith(mockEvent);
     });
   });
 });

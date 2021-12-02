@@ -1,0 +1,9 @@
+{
+  "name": "mock event",
+  "description": "event will be created",
+  "start": "2021-12-02",
+  "end": "2021-12-31",
+  "fee": 5000,
+  "supporting": "mock group1",
+  "sponsored": "mock gorup2"
+}
