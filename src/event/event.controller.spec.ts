@@ -1,41 +1,66 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
-import { EventRepository } from './event.repository';
 import { EventService } from './event.service';
+import * as faker from 'faker';
 
 const mockEvent = {
-  id: 1,
-  name: 'mock event',
-  description: 'event will be created',
-  start: '2021-12-02',
-  end: '2021-12-31',
-  fee: 5000,
-  supporting: 'mock group1',
-  sponsored: 'mock gorup2',
+  name: faker.lorem.sentence(),
+  description: faker.lorem.sentence(),
+  start: faker.datatype.datetime(),
+  end: faker.datatype.datetime(),
+  fee: faker.datatype.number(),
+  supporting: faker.lorem.sentence(),
+  sponsored: faker.lorem.sentence(),
 };
 
 describe('EventController', () => {
-  let controller: EventController;
-  let service: EventService;
+  let eventController: EventController;
+
+  const mockEventService = {
+    create: jest.fn((dto) => {
+      return {
+        id: faker.datatype.number(),
+        ...dto,
+      };
+    }),
+    findAll: jest.fn().mockResolvedValue([
+      {
+        id: faker.datatype.number(),
+        ...mockEvent,
+      },
+    ]),
+  };
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [EventController],
       providers: [EventService],
-    }).compile();
+    })
+      .overrideProvider(EventService)
+      .useValue(mockEventService)
+      .compile();
 
-    controller = module.get<EventController>(EventController);
-    service = module.get<EventService>(EventService);
-  });
-  // 기본 테스트
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+    eventController = moduleRef.get<EventController>(EventController);
   });
 
-  describe('createEvents', () => {
-    it('should call the service', () => {
-      expect(typeof controller.create).toBe('function');
-      expect(controller.create).toBeCalledWith(mockEvent);
+  describe('Event Controller', () => {
+    it('should be defined', () => {
+      expect(eventController).toBeDefined();
+    });
+    it('should create an event', () => {
+      expect(eventController.create(mockEvent)).toEqual({
+        id: expect.any(Number),
+        ...mockEvent,
+      });
+      expect(mockEventService.create).toHaveBeenCalledWith(mockEvent);
+    });
+    it('should find all events', () => {
+      expect(eventController.findAll()).toEqual([
+        {
+          id: expect.any(Number),
+          ...mockEvent,
+        },
+      ]);
     });
   });
 });
