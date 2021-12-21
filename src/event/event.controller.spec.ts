@@ -1,9 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
-// import { EventRepository } from './event.repository';
 import { EventRepository } from './event.repository';
 import { EventService } from './event.service';
-import mockEvent from './mockEvent.json';
+
+const mockEvent = {
+  id: 1,
+  name: 'mock event',
+  description: 'event will be created',
+  start: '2021-12-02',
+  end: '2021-12-31',
+  fee: 5000,
+  supporting: 'mock group1',
+  sponsored: 'mock gorup2',
+};
 
 describe('EventController', () => {
   let controller: EventController;
