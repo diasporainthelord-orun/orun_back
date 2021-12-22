@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { EventService } from './event.service';
+import { EventService } from '../event.service';
 import * as faker from 'faker';
 
 describe('EventService', () => {
@@ -8,6 +8,7 @@ describe('EventService', () => {
 
   const mockEventRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
+    // jest.fn().mockResolvedValue()랑 똑같음!
     save: jest
       .fn()
       .mockImplementation((user) =>

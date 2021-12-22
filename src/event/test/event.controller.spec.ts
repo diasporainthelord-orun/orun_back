@@ -1,17 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EventController } from './event.controller';
-import { EventService } from './event.service';
+import { EventController } from '../event.controller';
+import { EventService } from '../event.service';
+import { mockEvent } from './mock.event';
 import * as faker from 'faker';
-
-const mockEvent = {
-  name: faker.lorem.sentence(),
-  description: faker.lorem.sentence(),
-  start: faker.datatype.datetime(),
-  end: faker.datatype.datetime(),
-  fee: faker.datatype.number(),
-  supporting: faker.lorem.sentence(),
-  sponsored: faker.lorem.sentence(),
-};
 
 describe('EventController', () => {
   let eventController: EventController;
@@ -48,12 +39,15 @@ describe('EventController', () => {
       expect(eventController).toBeDefined();
     });
     it('should create an event', () => {
+      expect(eventController.create).toBeDefined();
       expect(eventController.create(mockEvent)).toEqual({
         id: expect.any(Number),
         ...mockEvent,
       });
       expect(mockEventService.create).toHaveBeenCalledWith(mockEvent);
     });
+    // it('should fail on creating an event', () => {});
+
     // it('should find all events', () => {
     //   expect(eventController.findAll()).toEqual([
     //     {
