@@ -46,7 +46,9 @@ describe('EventController', () => {
       });
       expect(mockEventService.create).toHaveBeenCalledWith(mockEvent);
     });
-    // it('should fail on creating an event', () => {});
+    it('should fail on creating an event', () => {
+      
+    });
 
     // it('should find all events', () => {
     //   expect(eventController.findAll()).toEqual([
