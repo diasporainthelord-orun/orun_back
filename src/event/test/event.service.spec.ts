@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { EventService } from '../event.service';
+import { mockEvent } from './mock.event';
 import * as faker from 'faker';
 
 describe('EventService', () => {
@@ -33,5 +34,12 @@ describe('EventService', () => {
 
   it('should be defined', () => {
     expect(eventService).toBeDefined();
+  });
+
+  it('should create a new event record and return that', async () => {
+    expect(await eventService.create(mockEvent)).toEqual({
+      id: expect.any(Number),
+      ...mockEvent,
+    });
   });
 });
