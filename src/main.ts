@@ -20,6 +20,8 @@ async function bootstrap() {
     }),
   );
 
+  // TODO: httpException 메서드 활용하여 exception처리 혹은 successWrapper처리!!!
+
   await app.listen(3000);
 }
 bootstrap();
